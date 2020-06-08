@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ticking Timeline</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="js/login.js"></script>
+</head>
+<body>
+    <header>
+        <a href="./index.html" class="pt-5 mx-auto d-block text-center" id="title">
+            <h1>Ticking Timeline</h1>
+        </a>
+    </header>
+    
+
+    <div class="card mx-auto d-block" style="width:400px">
+        <div class="card-body">
+            <div class="form-group">
+                <div class="media p-2">
+                    <img src="./media/defaultProfile.jpg" id="tempPicDisplay" class="mr-3 mt-3" style="width:60px;">
+                    <div class="media-body">
+                        <label for="profilePicture">Upload a photo</label>
+                        <input type="file" name="picture" class="form-control" id="profileUpload" accept="image/*" placeholder="username" style="width:250px">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="username" required="true">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" aria-describedby="passHelp" id="password" placeholder="password" required="true">
+                <small id="passHelp" class="form-text text-muted">Password must be 6 or more characters</small>
+            </div>
+            <button id="signup" name="action" class="btn btn-primary">Sign up</button>
+        </div>
+    </div>
+
+    <div class="alert collapse alert-warning mx-auto mt-3" style="width:400px;" id="error_box">
+    </div>
+    
+    
+    <div class="border-bottom my-2 mx-5"></div>
+    <footer>
+        <div class="mx-auto d-block">
+            <a href='/credits.html'>credits</a>
+        </div>
+    </footer>
+    <script src="js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="js/api.js"></script>
+</body>
+</html>
