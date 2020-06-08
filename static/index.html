@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ticking Timeline</title>
+  <link href="css/overlay.css" rel="stylesheet" type="text/css"/>
+  <link href="css/index.css" rel="stylesheet" type="text/css"/>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+
+  <!--loader-->
+  <div class="loader">
+    <img src="media/giphy.gif" alt="loading...">
+  </div>
+
+
+  <!--Nav bar for Title and sign in-->
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" href="/">Ticking Timeline</a>
+    <div class="dropdown" id="dropdownLgn">
+      <button type="button"  id="signinDropdownBtn" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          Sign in
+      </button>
+      <div class="dropdown-menu">
+        <!--signin form-->
+        <form class="px-4 py-3">
+          <div class="form-group">
+            <label for="dropdownFormUsername">Username</label>
+            <input type="text" class="form-control" id="dropdownLgnFormUsername" placeholder="Username" required="true">
+          </div>
+          <div class="form-group">
+            <label for="dropdownFormPassword1">Password</label>
+            <input type="password" class="form-control" id="dropdownLgnFormPassword" placeholder="Password" required="true">
+          </div>
+          <button id="signin" type="submit" name="action" class="btn btn-primary">Sign in</button>
+          <!--Error Handler within sign in form-->
+          <div class="alert collapse alert-warning mx-auto mt-3" style="width:200px;" id="lgn_error_box">
+          </div>
+        </form>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="/login.html">New around here? Sign up</a>
+      </div>
+    </div>
+
+    <!--Signout button section-->
+    <div class="container collapse-hide" id="signoutBtn">
+      <a href="/signout/" class="btn btn-primary">Sign out</a>
+      <h5 id="welcomeUser" class="text-white text-capitalize"></h5>
+    </div>
+  </nav>
+
+
+    <!--jumbotron for user info-->
+    <div class="jumbotron show login-collapse tree-collapse border-primary d-none" id="header" style="max-height: 340px;">
+      <!--default profile info-->
+        <div class="container">
+          <div class="media p-2" id="profileInfo">
+            <img src="./media/defaultProfile.jpg" class="img-thumbnail mr-2 mt-2" style="width:200px;">
+            <div class="media-body">
+              <h1 class="px-2">Username</h1>
+              <div class="border-bottom m-2 border-dark"></div>
+              <div class="well">
+                <p class="px-2">created a year ago</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--sub section headers in jumbotron-->
+        <div class="d-flex flex-row mt-3 sticky-bottom" id="userProfileOptions">
+          <div class="p-1 mx-2 border-bottom border-dark" style="border-width:3px !important;">
+            My Timelines
+          </div>
+          <div class="p-1 mx-2 border-bottom border-dark" style="border-width:3px !important;">
+            My Friends
+          </div>
+        </div>
+    </div>
+
+
+    <!--List of seeds you can use or make for your trees-->
+    <div class="container show seed-section login-collapse multi-collapse tree-collapse d-none" id="seeds">
+      <h2 class="text-center mb-2 pb-2 border-bottom">My Seeds</h2>
+      <div class="row" id="seeds_section">
+        <div class="col-md-3">
+          <div class="img-thumbnail" id="showTreeCreationForm">
+            <a href=".multi-collapse" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="createTreeForm seeds">
+              <h1 class="text-center mb-5 mt-5 pt-5 pd-5">+</h1>
+              <p class="pt-5 text-center">Plant a new tree</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--Tree creation form-->
+    <div class="collapse login-collapse multi-collapse" id="createTreeForm">
+      <div class="container bg-light ml-5 mr-5 mt-3 mb-3 pb-2 pl-2 pr-2 pt-2 border border-primary border-3 rounded-lg" id="createTreeForm">
+        <button type="button" class="close" data-target=".multi-collapse" data-toggle="collapse" aria-label="Close" aria-expanded="false" aria-controls="createTreeForm seeds">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <form>
+          <div class="form-group">
+            <label for="datePlanted">Date Planted</label>
+            <input type="date" class="form-control" id="datePlanted" aria-describedby="emailHelp" placeholder="Enter date DD/MM/YYYY">
+            <small id="emailHelp" class="form-text text-muted">You can change the format in the settings menu</small>
+          </div>
+          <div class="form-group">
+            <label for="treeTitle">Tree Title</label>
+            <input type="text" class="form-control" id="treeTitle" placeholder="Title">
+          </div>
+          <div class="form-group">
+            <label for="treeCaption">Tree Caption</label>
+            <input type="text" class="form-control" id="treeCaption" placeholder="Caption">
+          </div>
+          <button type="submit" id="createSeed" data-target=".multi-collapse" data-toggle="collapse" aria-expanded="false" aria-controls="createTreeForm seeds" class="btn btn-primary">Make Timeline!</button>
+        </form>
+      </div>
+    </div>
+
+  <!--Tree Viewing Section-->  
+  <div class="container collapse tree-collapse mx-5 my-5 py-5" id="selectedTree">
+    <h3 class="text-center my-1" id="treeViewTitle">Title of Tree</h3>
+    <button type="button" class="close zindex-popover" data-target=".tree-collapse" data-toggle="collapse" aria-label="Close" aria-expanded="false" aria-controls="selectedTree header seeds">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="container border">
+      
+      <div id="capsuleCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+        <ol class="carousel-indicators" id="capsuleIndicators">
+          <li data-target="#capsuleCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#capsuleCarousel" data-slide-to="1"></li>
+          <li data-target="#capsuleCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" id="capsuleList">
+          <!--images go here-->
+        </div>
+
+        <a class="carousel-control-prev bg-light" href="#capsuleCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next bg-light" href="#capsuleCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!--Capsule Add section-->
+  <div class="container ml-5 mr-5 mt-3 mb-3 pb-2 pl-2 pr-2 pt-2 border border-primary border-3 rounded-lg collapse tree-collapse" id="createCapsuleForm">
+    <h3>Add a Capsule</h3>
+    <form>
+      <div class="form-group">
+        <label for="dateCapsulePlanted">Date Planted</label>
+        <input type="date" class="form-control" id="dateCapsulePlanted" aria-describedby="plantingCapsuleDate" placeholder="Enter date YYYY/MM/DD">
+        <small id="plantingCapsuleDate" class="form-text text-muted">You can change the format in the settings menu</small>
+      </div>
+      <div class="form-group">
+        <label for="capsuleCap">Capsule Caption</label>
+        <input type="text" class="form-control" id="capsuleCap" placeholder="Caption">
+      </div>
+      <div class="media-body my-2">
+        <label for="capsulePicUpload">Upload a photo</label>
+        <input type="file" name="picture" class="form-control" id="capsulePicUpload" accept="image/*" placeholder="capsulePic" style="width:250px">
+      </div>
+      <button type="submit" id="createCapsule" class="btn btn-primary">Add Capsule!</button>
+    </form>
+  </div>
+
+  <!--Follower section-->
+  <div class="container collapse follower-section user-info" id="followers">
+    <div class="d-flex flex-row m-3">
+      <!--Follower template START-->
+      <div class="card bg-light" id="Raisa">
+        <div class="card-header">Raisa</div>
+        <img class="card-img-top d-block mx-auto" src="/media/defaultProfile.jpg" alt="Card Image" style="max-height: 250px; max-width: 250px;">
+        <div class="card-body m-1">200 followers</div>
+        <div class="card-footer">
+          <button id="followBtn" name="action" class="btn btn-primary">Follow</button>
+          <button id="viewBtn" name="action" class="btn btn-primary">View Profile</button>
+        </div>
+      </div>
+      <!--Follower template END-->
+    </div>
+  </div>
+
+  <!--Title Screen-->
+  <div class="container nonAuth mx-auto vert-center d-block">
+    <h1 class="text-center text-capitalize">Ticking Timeline</h1>
+    <p class="text-center text-capitalize p-1">sign in to begin</p>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+</body>
+<div class="border-bottom my-2 mx-5"></div>
+<footer>
+    <a class="text-center" href='/credits.html'>credits</a>
+</footer>
+
+</html>
