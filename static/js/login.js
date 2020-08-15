@@ -1,10 +1,8 @@
-/*jshint esversion: 6 */
 (function(){
     "use strict";
     
     window.addEventListener('load', function(){
         
-        // Error checking
         api.onError(function(err){
             console.error("[error]", err);
         });
@@ -16,14 +14,13 @@
 
             $('#error_box').collapse({
                 show: true
-              });
+              })
         });
         
         api.onUsernameUpdate(function(username){
             if (username) window.location.href = '/';
         });
         
-        // Sign up 
         function submit(){
             let username = document.getElementById("username").value;
             let password = document.getElementById("password").value;
@@ -49,7 +46,7 @@
         document.getElementById("profileUpload").addEventListener('change', function(e){
             readURL(document.getElementById("profileUpload"));
             
-        });
+        })
         
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -66,4 +63,4 @@
             }
         }
     });
-}());
+}())

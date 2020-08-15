@@ -6,7 +6,6 @@ let api = (function(){
         localStorage.setItem('locData', JSON.stringify({curr_user: "null", seed: "null"}));
     }
 
-    // Used for big data types like photos and videos
     function sendFiles(method, url, data, callback){
         let formdata = new FormData();
         Object.keys(data).forEach(function(key){
@@ -22,7 +21,6 @@ let api = (function(){
         xhr.send(formdata);
     }
 
-    // Used for small data types
     function send(method, url, data, callback){
         let xhr = new XMLHttpRequest();
         xhr.onload = function() {
@@ -48,14 +46,14 @@ let api = (function(){
     // get all users
     let getUsers = function(callback){
         send("GET", "/api/users/", null, callback);
-    };
+    }
 
     // notify all users
     function notifyObservingUserListeners(){
         userObservingListeners.forEach(function(listener){
             listener([]);
         });
-    }
+    };
 
     // notify all followers
     module.notifyFollowerListeners = function(username){
@@ -84,7 +82,7 @@ let api = (function(){
             treeListeners.forEach(function(listener){
                 listener(tree);
             });
-        });
+        })
     };
 
     // notify a user
@@ -92,7 +90,7 @@ let api = (function(){
         usernameListeners.forEach(function(listener){
             listener(username);
         });
-    }
+    };
 
     // when a tree is updated
     module.onTreeUpdate = function(listener){
@@ -101,18 +99,18 @@ let api = (function(){
             if (err) return notifyErrorListeners(err);
             listener(capsules);
         });
-    };
+    }
 
     // when a user is updated
     module.onUsernameUpdate = function(listener){
         usernameListeners.push(listener);
         listener(getUsername());
-    };
+    }
 
     module.onObservingUserUpdate = function(listener){
         userObservingListeners.push(listener);
         listener(api.getObservingUser());
-    };
+    }
 
     function notifyErrorListeners(err){
         errorListeners.forEach(function(listener){
@@ -131,7 +129,7 @@ let api = (function(){
             if (err) return notifyErrorListeners(err);
             handler(followers);
         });
-    };
+    }
 
     // call handler when a seed is added or deleted to for a user
     module.onSeedUpdate = function(handler){
@@ -140,32 +138,29 @@ let api = (function(){
             if (err) return notifyErrorListeners(err);
             handler(seeds);
         });
-    };
+    }
     
     let getUsername = function(){
         return document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    };
+    }
 
-    // Get the tree
     module.getTree = function(seed, callback) {
         send("GET", "/api/" + seed + "/capsule/", null, callback);
-    };
+    }
 
-    // Add a new tree
     module.addSeed = function(title, date, owner, caption) {
         send("POST", "/api/" + owner + "/seeds/", {title, date, caption}, function(err, res){
             if (err) return notifyErrorListeners(err);
             api.notifySeedListeners(api.getObservingUser());
         });
-    };
+    }
 
-    // Add a data type capsule that stores the trees information
     module.addCapsule = function(caption, date, picture, seed) {
         sendFiles("POST", "/api/seed/?seed=" + seed, {caption: caption, date: date, picture: picture}, function(err, res){
             if (err) return notifyErrorListeners(err);
             api.notifyTreeListeners();
         });
-    };
+    }
     
     // user signs up
     module.signup = function(username, password, profilePic){
@@ -173,7 +168,7 @@ let api = (function(){
             if (err) return notifyErrorListeners(err);
             notifyUsernameListeners(getUsername());
         });
-    };
+    }
     
     // user signs in
     module.signin = function(username, password){
@@ -181,34 +176,30 @@ let api = (function(){
             if (err) return notifyErrorListeners(err);
             notifyUsernameListeners(getUsername());
         });
-    };
+    }
 
-    // Get the user
     module.getUser = function(username, callback){
         send("GET", "/api/user/?username=" + username, null, callback);
-    };
+    }
 
-    // Add a follower
     module.addFollower = function(username, follower, callback){
         send("POST", "/api/" + username + "/followers/", {follower : follower}, function(err, res) {
             if (err) return notifyErrorListeners(err);
             notifyFollowerListeners(username);
         }); 
-    };
-
-    // These 3 get functions gets the followers, the trees, and the titles
+    }
 
     module.getFollowers = function(username, callback) {
         send("GET", "/api/" + username + "/followers/", null, callback);
-    };
+    }
 
     module.getSeeds = function(username, callback) {
         send("GET", "/api/" + username + "/seeds/", null, callback);
-    };
+    }
 
     module.getSeedTitle = function(seedId, callback) {
         send("GET", "/api/seeds/title/?seed=" + seedId, null, callback);
-    };
+    }
 
     // delete an image from the gallery given its imageId
     module.delTimeline = function(timelineId){
@@ -216,33 +207,33 @@ let api = (function(){
             if (err) return api.notifyErrorListeners(err);
             api.notifySeedListeners(api.getObservingUser());
        });
-    };
+    }
 
 
     // functions for local properties
     module.getObservingUser = function() {
         let locData = JSON.parse(localStorage.getItem('locData'));
         return locData.curr_user;
-    };
+    }
 
     module.getObservingSeed = function() {
         let locData = JSON.parse(localStorage.getItem('locData'));
         return locData.seed;
-    };
+    }
 
     module.setObservingUser = function(username, callback) {
         let locData = JSON.parse(localStorage.getItem('locData'));
         locData.curr_user = 
         localStorage.setItem('locData', JSON.stringify(locData));
         return callback();
-    };
+    }
 
     module.setObservingSeed = function(seed, callback) {
         let locData = JSON.parse(localStorage.getItem('locData'));
         locData.seed = seed;
         localStorage.setItem('locData', JSON.stringify(locData));
         return callback();
-    };
+    }
 
     return module;
 })();

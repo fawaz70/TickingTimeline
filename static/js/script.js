@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 (function(){
 	"use strict";
+	//localStorage.clear();
 
 	window.onload = (function(){
 		const loader = document.querySelector(".loader");
@@ -11,7 +12,6 @@
 			
 		});
 
-		// Error checking
 		api.onError(function(err){
             console.error("[error]", err);
         });
@@ -23,10 +23,9 @@
 
             $('#lgn_error_box').collapse({
                 show: true
-              });
+              })
 		});
 		
-		// Seed observer
 		api.onSeedUpdate(function(timelines){
 			document.getElementById("seeds_section").innerHTML = `
 			<div class="col-md-3">
@@ -69,7 +68,6 @@
 			});
 		});
 
-		// Tree observer
 		api.onTreeUpdate(function(capsules){
 			// set tree title
 			let treeTitle = "Add a Capsule to get started";
@@ -210,4 +208,4 @@
 		});
 
     });
-} ());
+} ())
