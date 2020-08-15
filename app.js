@@ -15,27 +15,8 @@ let capsules = new Datastore({ filename: 'db/capsules.db', autoload: true });
 
 const cookie = require('cookie');
 
-// Firebase App (the core Firebase SDK) is always required and
-// must be listed before other Firebase SDKs
-var firebase = require("firebase/app");
-
 let multer  = require('multer');
 let upload = multer({ dest: path.join(__dirname, './uploads')});
-
-// Your web app's Firebase configuration
-var firebaseConfig = {
-    apiKey: "AIzaSyCr0stbhgwfnl4T3QSfT_S0xjRLDtWt1b4",
-    authDomain: "cscc09-project.firebaseapp.com",
-    databaseURL: "https://cscc09-project.firebaseio.com",
-    projectId: "cscc09-project",
-    storageBucket: "cscc09-project.appspot.com",
-    messagingSenderId: "1081005297666",
-    appId: "1:1081005297666:web:0f195e43a02a0c1bd7971b",
-    measurementId: "G-7YRY0T1QKM"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
 
 const session = require('express-session');
 
